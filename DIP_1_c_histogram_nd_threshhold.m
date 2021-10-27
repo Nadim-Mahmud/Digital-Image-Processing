@@ -14,7 +14,7 @@ imhist(img);
 
 %threshold operation
 
-threshold = 75;
+threshold = 200;
 
 output_img = img;
 
