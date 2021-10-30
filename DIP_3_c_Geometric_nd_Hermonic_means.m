@@ -1,14 +1,13 @@
 %% Not Finished Yet
 //
 
-
 clc;
 close all;
 clear all;
 
 img = imread('assets/dog.jpg');
 img = rgb2gray(img);
-img = imresize(img, [512 512]);
+img = imresize(img, [100 100]);
 
 dimg = im2double(img);
 
@@ -32,18 +31,27 @@ for i = (mask_dim + 1) : (rows + mask_dim)
         sum = 0.0;
         for ii = -loop_n : loop_n
             for jj = -loop_n : loop_n
-                sum = sum + double(padded_img(i+ii, j+jj)); % how to normalize values.
+                sum = sum + log(double(padded_img(i+ii, j+jj)));
             end
         end
         %disp(sum)
-        gmean_img(i-mask_dim, j-mask_dim) = sum^(1.0/(mask_dim*mask_dim));
+        gmean_img(i-mask_dim, j-mask_dim) = sum;
     end
 end
+
+gmean_img = exp(gmean_img).^(1.0/(mask_dim*mask_dim));
 
 maxx = max(gmean_img(:));
 
 
-imshow(gmean_img/maxx);
+imshow(uint8(normalize_image(gmean_img, 0, 255)));
+
+m = n = 5;
+
+g = double(img) ; 
+f = exp ( imfilter ( log(g) , ones (m, n ) , ' replicate ' ) ).^(1/m*n); 
+
+imshow(uint8(normalize_image(f, 0, 255)));
 
 %Median Filter 
 
