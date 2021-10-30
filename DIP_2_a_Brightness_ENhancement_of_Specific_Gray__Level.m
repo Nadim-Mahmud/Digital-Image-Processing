@@ -28,7 +28,7 @@ for i = 1 : rows
 end
 
 % normalizing the output incase higher than 255 vlue occures
-tmp_img = normalize_image(output_img, 0, 255);
+tmp_img = normalize_image(output_img, 0, 255); %  user defined function
 output_img = uint8(tmp_img);
 
 subplot(2,2,1);
