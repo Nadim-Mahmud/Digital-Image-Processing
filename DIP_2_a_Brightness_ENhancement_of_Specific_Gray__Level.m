@@ -15,7 +15,7 @@ img = imresize(img, [512 512]);
 %range to increase brightness
 left = 10;
 right = 50;
-enhancement = 80;
+enhancement = 255;
 
 output_img = img;
 
@@ -27,8 +27,9 @@ for i = 1 : rows
     end
 end
 
-%imhist(output_img)
-
+% normalizing the output incase higher than 255 vlue occures
+tmp_img = normalize_image(output_img, 0, 255);
+output_img = uint8(tmp_img);
 
 subplot(2,2,1);
 imshow(img);
