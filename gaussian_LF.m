@@ -1,4 +1,4 @@
-function output_img = gaussian_LF(img, D0, n)
+function output_img = gaussian_LF(img, D0)
   
     [rows columns] = size(img);
 
