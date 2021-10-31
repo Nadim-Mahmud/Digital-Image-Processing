@@ -12,7 +12,7 @@ img = imresize(img, [512 512]);
 bimg = im2bw(img);
 
 %mask must be odd
-mask_dim = 10;
+mask_dim = 11;
 se = ones(mask_dim, mask_dim); % structuring element
 
 erosion_img = erosion(img, se);
