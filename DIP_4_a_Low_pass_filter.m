@@ -23,5 +23,9 @@ subplot(2, 2, 3)
 imshow(gaussian_img);
 title('Gaussian filtered image');
 
+subplot(2, 2, 4)
+imshow(imabsdiff(gaussian_img, butter_img).*200);
+title('Difference image');
+
 
 
