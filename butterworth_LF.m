@@ -1,4 +1,4 @@
-function output_img = BWLF(img, D0, n)
+function output_img = butterworth_LF(img, D0, n)
   
     [rows columns] = size(img);
 

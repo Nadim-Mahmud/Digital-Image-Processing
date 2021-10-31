@@ -8,7 +8,8 @@ img = rgb2gray(img);
 img = imresize(img, [512 512]);
 
 D0 = 30;
-output_img = BWLF(img, D0, 2);
+butter_img = butterworth_LF(img, D0, 2);
+gaussian_img = butterworth_LF(img, D0);
 
 imshow(output_img);
 
