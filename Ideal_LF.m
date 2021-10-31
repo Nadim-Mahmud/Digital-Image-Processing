@@ -1,4 +1,4 @@
-function output_img = IDLF(img, D0)
+function output_img = ideal_LF(img, D0)
   
     [rows columns] = size(img);
 
