@@ -12,7 +12,6 @@ function output_img = erosion(img, se)
     
     [rows columns] = size(img);
     output_img = zeros(rows, columns);
-
     
     for i = (mask_dim+1) : (rows+mask_dim)
         for j = (mask_dim+1) : (columns+mask_dim)
@@ -21,7 +20,7 @@ function output_img = erosion(img, se)
             % stores one if equal
             nh_img = (cut_img == se);
             % fit operation (stores zero if any of them are not matched)
-            output_img(i,j) = min(nh_img(:));
+            output_img(i-mask_dim,j-mask_dim) = min(nh_img(:));
         end
     end
     

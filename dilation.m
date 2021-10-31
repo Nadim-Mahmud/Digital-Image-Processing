@@ -21,7 +21,7 @@ function output_img = dilation(img, se)
             % stores one if equal
             nh_img = (cut_img == se);
             % fit operation (stores zero if any of them are not matched)
-            output_img(i,j) = max(nh_img(:));
+            output_img(i-mask_dim,j-mask_dim) = max(nh_img(:));
         end
     end
     
