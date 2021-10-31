@@ -16,7 +16,7 @@ function output_img = gaussian_LF(img, D0)
     % glf = gaussian loadpass filter
     % when distance D lower than D0 then preserving the value
     % when distance greater than D0 value started to become near to zero
-    glf = exp(-((D*D)./(2.*D0.^2)));
+    glf = exp(-((D.*D)./(2.*D0.^2)));
 
     % multiplicate the filter with fft image
     foutput_img = fimg .* glf;
