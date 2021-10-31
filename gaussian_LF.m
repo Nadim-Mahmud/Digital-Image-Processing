@@ -19,7 +19,7 @@ function output_img = gaussian_LF(img, D0)
     glf = exp(-((D*D)./(2.*D0.^2)));
 
     % multiplicate the filter with fft image
-    foutput_img = fimg .* bwlf;
+    foutput_img = fimg .* glf;
     tmp_img = ifft2(foutput_img);
     output_img = mat2gray(abs(tmp_img));   
 end
