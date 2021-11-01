@@ -7,9 +7,12 @@ img = rgb2gray(img);
 %img = rgb2gray(img);
 img = imresize(img, [512 512]);
 
-D0 = 30;
+D0 = 10;
 butter_img = butterworth_LF(img, D0, 4);
 gaussian_img = gaussian_LF(img, D0);
+
+disp(strcat('PSNR of butterworth : ', int2str(psnr(img, butter_img))));
+disp(strcat('PSNR of gaussian : ', int2str(psnr(img, gaussian_img))));
 
 subplot(2, 2, 1);
 imshow(img);
