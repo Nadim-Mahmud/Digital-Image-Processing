@@ -11,31 +11,42 @@ double_img = im2double(img);
 [rows, columns] = size(img);
 
 power_img = zeros(rows, columns);
-log_img = zeros(rows, columns);
-c = 1;
+ilog_img = zeros(rows, columns);
+
+L = 8; % intensity level
+c = (L - 1)/log(L) ;
+factor = 5;
 
 for i = 1 : rows
     for j = 1 : columns
-        power_img(i,j) = c*double_img(i,j)^2;
+        power_img(i,j) = c*double_img(i,j)^factor;
         %log_img(i,j) = c*log(1.0 + double_img(i,j));
         %what is the formula of inverse log
-        log_img(i,j) = c*2^(double_img(i,j)); %inverse log
+        ilog_img(i,j) = exp(double_img(i,j)).^(1/c) - 1; %inverse log
     end
 end
 
+subplot(3,2,1);
+imshow(img);
+title('Original Image');
 
-subplot(2,2,1);
+subplot(3,2,2);
+imhist(img);
+title('Original img Hist');
+
+
+subplot(3,2,3);
 imshow(power_img);
 title('PowerLaw Transformed Image');
 
-subplot(2,2,2);
+subplot(3,2,4);
 imhist(power_img);
 title('PowerLaw Hist');
 
-subplot(2,2,3);
-imshow(log_img);
-title('Log Transformed Image');
+subplot(3,2,5);
+imshow(ilog_img);
+title('Inverse Log Transformed Image');
 
-subplot(2,2,4);
-imhist(log_img);
-title('Log Transformed Image');
+subplot(3,2,6);
+imhist(ilog_img);
+title('Inverse Log Transformed Image');
