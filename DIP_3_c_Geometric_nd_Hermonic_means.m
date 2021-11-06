@@ -70,8 +70,8 @@ title('Original Image');
 
 subplot(2,2,2)
 imshow(gmean_img);
-title('Average Image');
+title('Geometric Mean Image');
 
 subplot(2,2,3)
 imshow(hmean_img);
-title('Median Image');
+title('Harmonic Mean image');
