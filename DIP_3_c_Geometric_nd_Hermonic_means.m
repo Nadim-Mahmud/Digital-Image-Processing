@@ -41,7 +41,7 @@ end
 
 gmean_img = exp(gmean_img).^(1.0/(mask_dim*mask_dim));
 
-imshow(uint8(normalize_image(gmean_img, 0, 255)));
+%imshow(uint8(normalize_image(gmean_img, 0, 255)));
 
 
 %Harmonic mean filter
