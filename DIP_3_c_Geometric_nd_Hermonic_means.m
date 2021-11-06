@@ -1,13 +1,13 @@
 %% Not Finished Yet
-//
+
 
 clc;
 close all;
 clear all;
 
-img = imread('assets/dog.jpg');
-img = rgb2gray(img);
-img = imresize(img, [100 100]);
+img = imread('assets/circuit.jpg');
+%img = rgb2gray(img);
+img = imresize(img, [512 512]);
 
 dimg = im2double(img);
 
@@ -15,7 +15,7 @@ dimg = im2double(img);
 
 %converting image to double 
 
-mask_dim = 5; % mask dimention should be always odd
+mask_dim = 7; % mask dimention should be always odd
 loop_n = floor(mask_dim/2);
 
 % average mask
@@ -31,7 +31,7 @@ for i = (mask_dim + 1) : (rows + mask_dim)
         sum = 0.0;
         for ii = -loop_n : loop_n
             for jj = -loop_n : loop_n
-                sum = sum + log(double(padded_img(i+ii, j+jj)));
+                sum = sum + log(padded_img(i+ii, j+jj));
             end
         end
         %disp(sum)
@@ -41,41 +41,26 @@ end
 
 gmean_img = exp(gmean_img).^(1.0/(mask_dim*mask_dim));
 
-maxx = max(gmean_img(:));
-
-
 imshow(uint8(normalize_image(gmean_img, 0, 255)));
 
-m = n = 5;
 
-g = double(img) ; 
-f = exp ( imfilter ( log(g) , ones (m, n ) , ' replicate ' ) ).^(1/m*n); 
+%Harmonic mean filter
 
-imshow(uint8(normalize_image(f, 0, 255)));
-
-%Median Filter 
-
-median_img = img;
-
-% loop through image locations
+hmean_img = zeros(rows, columns);
 for i = (mask_dim + 1) : (rows + mask_dim)
     for j = (mask_dim + 1) : (columns + mask_dim)
-        
         sum = 0.0;
-        im = 0;
-        md_array = zeros(1,mask_dim*mask_dim);
-        
-        % loop for mask 
         for ii = -loop_n : loop_n
             for jj = -loop_n : loop_n
-                im = im + 1;
-                md_array(1,im) = padded_img(i+ii, j+jj);
+                sum = sum + 1.0/padded_img(i+ii, j+jj);
             end
         end
-        median_img(i-mask_dim, j-mask_dim) = (median(md_array));
+        %disp(sum)
+        hmean_img(i-mask_dim, j-mask_dim) = sum;
     end
 end
 
+hmean_img = (mask_dim*mask_dim) ./ hmean_img;
 
 
 
@@ -84,9 +69,9 @@ imshow(img);
 title('Original Image');
 
 subplot(2,2,2)
-imshow(uint8(avg_img));
+imshow(gmean_img);
 title('Average Image');
 
 subplot(2,2,3)
-imshow(uint8(median_img));
+imshow(hmean_img);
 title('Median Image');

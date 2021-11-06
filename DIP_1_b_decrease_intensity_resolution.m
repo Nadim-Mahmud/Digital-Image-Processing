@@ -2,7 +2,7 @@ clc;
 close all;
 clear all;
 
-rgb_img = imread('dog.jpg');
+rgb_img = imread('assets/dog.jpg');
 img = rgb2gray(rgb_img);
 img = imresize(img, [512 512]);
 
