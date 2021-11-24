@@ -2,23 +2,26 @@ clc;
 close all;
 clear all;
 
-img = imread('assets/coins.jpg');
+img = imread('../assets/coins.jpg');
 %img = rgb2gray(img);
 img = imresize(img, [512 512]);
+img = im2bw(img);
 
 [rows columns] = size(img);
 
 %mask must be odd
 mask_dim = 11;
 
-se = ones(mask_dim, mask_dim); % structuring element
+se = strel('rectangle', [mask_dim mask_dim]) % structuring element
 
-eroted_img = erosion(img, se);
-dilated_img = dilation(img, se);
+eroted_img = imerode(img, se);
+dilated_img = imdilate(img, se);
+
+
 
 subplot(2,2,1);
-imshow(im2bw(img));
-title('Before Erosion');
+imshow(img);
+title('Original Image');
 
 subplot(2,2,2);
 imshow(eroted_img);

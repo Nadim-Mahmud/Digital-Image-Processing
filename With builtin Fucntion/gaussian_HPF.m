@@ -14,7 +14,7 @@ function output_img = gaussian_HPF(img, D0)
     D = sqrt(u.^2 + v.^2);
 
     % ghf = gaussian highpass filter
-    ghf = 1 .- exp(-((D.*D)./(2.*D0.^2)));
+    ghf = 1 - exp(-((D.*D)./(2.*D0.^2)));
 
     % multiplicate the filter with fft image
     foutput_img = fimg .* ghf;

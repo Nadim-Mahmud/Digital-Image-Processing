@@ -6,7 +6,7 @@ img = imread('../assets/dog.jpg');
 img = rgb2gray(img);
 img = imresize(img, [512 512]);
 
-    D0 = 10;
+
     
     [rows columns] = size(img);
 
@@ -35,17 +35,8 @@ img = imresize(img, [512 512]);
     % multiplicate the filter with fft image
     foutput_img = fimg .* glf;
     tmp_img = ifft2(foutput_img);
-    gaussian_hf_img = mat2gray(abs(tmp_img)); 
+    gaussian_hf_img = uint8(abs(tmp_img)); 
     
-    
-    
-    ideal_hf_img = gaussian_LF(img, 10);
 
-
-subplot(2,1,1);
 imshow(gaussian_hf_img);
-title('Gaussian High Pass Image');
 
-subplot(2,1,2);
-imshow(ideal_hf_img);
-title('Ideal High Pass Image');
