@@ -3,9 +3,11 @@ clc;
 close all;
 clear all;
 
-img = imread('assets/dog.jpg');
+img = imread('../assets/dog.jpg');
 img = rgb2gray(img);
 img = imresize(img, [512 512]);
+
+img = imnoise(img, 'gaussian');
 
 [rows, columns] = size(img);
 
@@ -18,9 +20,9 @@ mask2 = ones(mask_dim2, mask_dim2)*(1.0/(mask_dim2*mask_dim2));
 mask_dim3 = 7; % mask dimention should be always odd
 mask3 = ones(mask_dim3, mask_dim3)*(1.0/(mask_dim3*mask_dim3));
 
-avg_img1 = average_filter(img, mask1);
-avg_img2 = average_filter(img, mask2);
-avg_img3 = average_filter(img, mask3);
+avg_img1 = imfilter(img, mask1);
+avg_img2 = imfilter(img, mask2);
+avg_img3 = imfilter(img, mask3);
 
 
 

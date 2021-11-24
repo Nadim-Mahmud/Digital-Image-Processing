@@ -1,13 +1,13 @@
-%% Not Finished Yet
-
 
 clc;
 close all;
 clear all;
 
-img = imread('assets/circuit.jpg');
+img = imread('../assets/circuit.jpg');
 %img = rgb2gray(img);
 img = imresize(img, [512 512]);
+
+img = imnoise(img, 'gaussian');
 
 dimg = im2double(img);
 
@@ -15,53 +15,12 @@ dimg = im2double(img);
 
 %converting image to double 
 
-mask_dim = 7; % mask dimention should be always odd
-loop_n = floor(mask_dim/2);
-
-% average mask
-mask = ones(mask_dim, mask_dim)*(1.0/(mask_dim*mask_dim));
-
-% padding each dimention by replicating last values
-padded_img = padarray( dimg,[mask_dim mask_dim],'replicate');
-
-% Geometric mean filter operation
-gmean_img = zeros(rows, columns);
-for i = (mask_dim + 1) : (rows + mask_dim)
-    for j = (mask_dim + 1) : (columns + mask_dim)
-        sum = 0.0;
-        for ii = -loop_n : loop_n
-            for jj = -loop_n : loop_n
-                sum = sum + log(padded_img(i+ii, j+jj));
-            end
-        end
-        %disp(sum)
-        gmean_img(i-mask_dim, j-mask_dim) = sum;
-    end
-end
-
-gmean_img = exp(gmean_img).^(1.0/(mask_dim*mask_dim));
-
-%imshow(uint8(normalize_image(gmean_img, 0, 255)));
+dim = 10; % mask dimention should be always odd
 
 
-%Harmonic mean filter
+gmean_img = exp(imfilter(log(dimg), ones(dim,dim))).^(1/(dim*dim));
 
-hmean_img = zeros(rows, columns);
-for i = (mask_dim + 1) : (rows + mask_dim)
-    for j = (mask_dim + 1) : (columns + mask_dim)
-        sum = 0.0;
-        for ii = -loop_n : loop_n
-            for jj = -loop_n : loop_n
-                sum = sum + 1.0/padded_img(i+ii, j+jj);
-            end
-        end
-        %disp(sum)
-        hmean_img(i-mask_dim, j-mask_dim) = sum;
-    end
-end
-
-hmean_img = (mask_dim*mask_dim) ./ hmean_img;
-
+hmean_img = (dim*dim)./imfilter(1 ./ dimg, ones(dim, dim));
 
 
 subplot(2, 2, 1)
@@ -75,3 +34,5 @@ title('Geometric Mean Image');
 subplot(2,2,3)
 imshow(hmean_img);
 title('Harmonic Mean image');
+
+
