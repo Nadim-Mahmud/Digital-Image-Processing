@@ -2,7 +2,7 @@ clc;
 close all;
 clear all;
 
-img = imread('assets/lenna.png');
+img = imread('../assets/lenna.png');
 img = rgb2gray(img);
 img = imresize(img, [512 512]);
 
@@ -18,9 +18,9 @@ title('Original Image Hist');
 
 
 %range to increase brightness
-left = 0;
-right = 50;
-enhancement = 350;
+left = 40;
+right = 70;
+enhancement = 100;
 
 img = double(img);
 output_img = img;
@@ -34,8 +34,9 @@ for i = 1 : rows
 end
 
 % normalizing the output incase higher than 255 vlue occures
-tmp_img = rescale(output_img, 0, 255); %  user defined function
+tmp_img = rescale(output_img, 0, 255); %  builin function
 output_img = uint8(tmp_img);
+
 
 subplot(2,2,3);
 imshow(output_img);
