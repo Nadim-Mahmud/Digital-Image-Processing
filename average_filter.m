@@ -15,7 +15,7 @@ for i = (mask_dim + 1) : (rows + mask_dim)
         sum = 0.0;
         for ii = -loop_n : loop_n
             for jj = -loop_n : loop_n
-                sum = sum + padded_img(i+ii, j+jj) * mask(loop_n+1+ii, loop_n + 1 + jj);
+                sum = sum + padded_img(i+ii, j+jj) .* mask(loop_n+1+ii, loop_n + 1 + jj);
             end
         end
         filtered_img(i-mask_dim, j-mask_dim) = sum;
